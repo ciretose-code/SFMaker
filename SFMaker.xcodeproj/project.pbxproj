@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		001FEDE5B0DE6DB4440F2192 /* SymbolCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEB87BA96761E9CA859EC54 /* SymbolCache.swift */; };
+		05CF9FD2BD9CDA66E8E529D4 /* ConfigPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC05A0987147945869D6B /* ConfigPanelView.swift */; };
+		076494204EB5D7BA69AA1488 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927DA1F8CC40C6C857771875 /* PreviewView.swift */; };
+		09E4FD6B9C7D55BE7B65ED97 /* ColorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE25619ACB4101480D2533B /* ColorRowView.swift */; };
+		3A9B1DD00292B42C47340AFA /* SymbolConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A637A85C2B5B15018834CF7 /* SymbolConfig.swift */; };
+		5A6CA75AF7774A2FDCAD62A4 /* fallback-symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */; };
+		98ABACDC6CB8E411016AA9B9 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */; };
+		9B4A6C33EE469C80A2710E79 /* SymbolBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */; };
+		9BFFC765A57EDAACBFB5D4FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8C1BDD88ECAB10196366F7 /* ContentView.swift */; };
+		DBA3F21C5D4D2B3BECBBA072 /* SFMakerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16F7538423601DFFD91527F /* SFMakerApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		10576946F99114B0F437C6D5 /* SFMaker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SFMaker.entitlements; sourceTree = "<group>"; };
+		3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fallback-symbols.txt"; sourceTree = "<group>"; };
+		4BF4EF6CEB1E960114611F44 /* SFMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolBrowserView.swift; sourceTree = "<group>"; };
+		5A637A85C2B5B15018834CF7 /* SymbolConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolConfig.swift; sourceTree = "<group>"; };
+		927DA1F8CC40C6C857771875 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		9EEB87BA96761E9CA859EC54 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
+		AF8C1BDD88ECAB10196366F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AFEAC05A0987147945869D6B /* ConfigPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPanelView.swift; sourceTree = "<group>"; };
+		D16F7538423601DFFD91527F /* SFMakerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMakerApp.swift; sourceTree = "<group>"; };
+		D39FC612075DB10EDE75B489 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DAE25619ACB4101480D2533B /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
+		EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		18BD1742B321272D102CA866 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		26613B7E0C4724770DEFB36C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DAE25619ACB4101480D2533B /* ColorRowView.swift */,
+				AFEAC05A0987147945869D6B /* ConfigPanelView.swift */,
+				927DA1F8CC40C6C857771875 /* PreviewView.swift */,
+				554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2AA32F7BC6EC7785774E8632 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BF4EF6CEB1E960114611F44 /* SFMaker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45015644B2CC8E5AC9039E3D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A637A85C2B5B15018834CF7 /* SymbolConfig.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7373C25A3FCE50D4A89DBCFA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */,
+				9EEB87BA96761E9CA859EC54 /* SymbolCache.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7D5F0C70D820BFE3E9733096 = {
+			isa = PBXGroup;
+			children = (
+				8EF9F637250C004B3489BADE /* SFMaker */,
+				2AA32F7BC6EC7785774E8632 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8EF9F637250C004B3489BADE /* SFMaker */ = {
+			isa = PBXGroup;
+			children = (
+				AF8C1BDD88ECAB10196366F7 /* ContentView.swift */,
+				D39FC612075DB10EDE75B489 /* Info.plist */,
+				10576946F99114B0F437C6D5 /* SFMaker.entitlements */,
+				D16F7538423601DFFD91527F /* SFMakerApp.swift */,
+				45015644B2CC8E5AC9039E3D /* Models */,
+				18BD1742B321272D102CA866 /* Resources */,
+				7373C25A3FCE50D4A89DBCFA /* Services */,
+				26613B7E0C4724770DEFB36C /* Views */,
+			);
+			path = SFMaker;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		43F6E3121CE748BFB628B83E /* SFMaker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D2F351F6A20F0CA6023ED4 /* Build configuration list for PBXNativeTarget "SFMaker" */;
+			buildPhases = (
+				F86BBEFD6C87A53EE93277EE /* Sources */,
+				36D418AA176904F0CC2EAD00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SFMaker;
+			packageProductDependencies = (
+			);
+			productName = SFMaker;
+			productReference = 4BF4EF6CEB1E960114611F44 /* SFMaker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		175E5885D4B50F81F10B36E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					43F6E3121CE748BFB628B83E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 98DE1E554BB70ADC4DAF85A7 /* Build configuration list for PBXProject "SFMaker" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 7D5F0C70D820BFE3E9733096;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2AA32F7BC6EC7785774E8632 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				43F6E3121CE748BFB628B83E /* SFMaker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		36D418AA176904F0CC2EAD00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A6CA75AF7774A2FDCAD62A4 /* fallback-symbols.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F86BBEFD6C87A53EE93277EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09E4FD6B9C7D55BE7B65ED97 /* ColorRowView.swift in Sources */,
+				05CF9FD2BD9CDA66E8E529D4 /* ConfigPanelView.swift in Sources */,
+				9BFFC765A57EDAACBFB5D4FF /* ContentView.swift in Sources */,
+				98ABACDC6CB8E411016AA9B9 /* ExportService.swift in Sources */,
+				076494204EB5D7BA69AA1488 /* PreviewView.swift in Sources */,
+				DBA3F21C5D4D2B3BECBBA072 /* SFMakerApp.swift in Sources */,
+				9B4A6C33EE469C80A2710E79 /* SymbolBrowserView.swift in Sources */,
+				001FEDE5B0DE6DB4440F2192 /* SymbolCache.swift in Sources */,
+				3A9B1DD00292B42C47340AFA /* SymbolConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		38F77E70D295CEE2212ECADA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		76C6058163E879DDAF45C8BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9EA6C88BC538C9E8D1DEABD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SFMaker/SFMaker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = SFMaker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sfmaker.app;
+				PRODUCT_NAME = SFMaker;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		C333EBBEBFC45D22C1756E58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SFMaker/SFMaker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = SFMaker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sfmaker.app;
+				PRODUCT_NAME = SFMaker;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41D2F351F6A20F0CA6023ED4 /* Build configuration list for PBXNativeTarget "SFMaker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C333EBBEBFC45D22C1756E58 /* Debug */,
+				9EA6C88BC538C9E8D1DEABD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		98DE1E554BB70ADC4DAF85A7 /* Build configuration list for PBXProject "SFMaker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76C6058163E879DDAF45C8BE /* Debug */,
+				38F77E70D295CEE2212ECADA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 175E5885D4B50F81F10B36E1 /* Project object */;
+}
