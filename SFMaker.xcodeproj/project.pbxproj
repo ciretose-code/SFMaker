@@ -30,7 +30,6 @@
 		AF8C1BDD88ECAB10196366F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AFEAC05A0987147945869D6B /* ConfigPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPanelView.swift; sourceTree = "<group>"; };
 		D16F7538423601DFFD91527F /* SFMakerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMakerApp.swift; sourceTree = "<group>"; };
-		D39FC612075DB10EDE75B489 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DAE25619ACB4101480D2533B /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
 		EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				AF8C1BDD88ECAB10196366F7 /* ContentView.swift */,
-				D39FC612075DB10EDE75B489 /* Info.plist */,
 				10576946F99114B0F437C6D5 /* SFMaker.entitlements */,
 				D16F7538423601DFFD91527F /* SFMakerApp.swift */,
 				45015644B2CC8E5AC9039E3D /* Models */,
@@ -134,7 +132,6 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					43F6E3121CE748BFB628B83E = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -315,16 +312,20 @@
 				CODE_SIGN_ENTITLEMENTS = SFMaker/SFMaker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6D39SX3E6V;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SFMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sfmaker.app;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ciretose.sfimagemaker;
 				PRODUCT_NAME = SFMaker;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -339,16 +340,20 @@
 				CODE_SIGN_ENTITLEMENTS = SFMaker/SFMaker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6D39SX3E6V;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SFMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sfmaker.app;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ciretose.sfimagemaker;
 				PRODUCT_NAME = SFMaker;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
