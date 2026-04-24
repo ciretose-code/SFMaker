@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
 import Combine
@@ -35,7 +36,8 @@ final class SymbolConfig: ObservableObject {
     @Published var exportFormat: ExportFormat
 
     var exportPixelSize: Int {
-        exportPreset == .custom ? customSize : exportPreset.pointSize * exportScale.factor
+        let raw = exportPreset == .custom ? customSize : exportPreset.pointSize * exportScale.factor
+        return min(max(raw, 1), 8192)
     }
 
     private var bag = Set<AnyCancellable>()
@@ -218,6 +220,39 @@ final class SymbolConfig: ObservableObject {
             case .pdf:  return .pdf
             }
         }
+    }
+}
+
+// MARK: - Symbol configuration
+
+extension NSImage.SymbolConfiguration {
+    @MainActor
+    static func make(from config: SymbolConfig) -> NSImage.SymbolConfiguration {
+        var cfg = NSImage.SymbolConfiguration(
+            pointSize: 200,
+            weight: config.weight.nsWeight,
+            scale: config.scale.nsScale
+        )
+
+        switch config.renderingMode {
+        case .monochrome:
+            cfg = cfg.applying(.preferringMonochrome())
+        case .hierarchical:
+            let color = NSColor(config.primaryColor)
+            cfg = cfg.applying(.preferringHierarchical())
+            cfg = cfg.applying(NSImage.SymbolConfiguration(paletteColors: [color]))
+        case .palette:
+            let colors = [
+                NSColor(config.primaryColor),
+                NSColor(config.secondaryColor),
+                NSColor(config.tertiaryColor)
+            ]
+            cfg = cfg.applying(NSImage.SymbolConfiguration(paletteColors: colors))
+        case .multicolor:
+            cfg = cfg.applying(.preferringMulticolor())
+        }
+
+        return cfg
     }
 }
 

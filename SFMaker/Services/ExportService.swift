@@ -43,13 +43,11 @@ enum ExportService {
 
         let bounds = NSRect(origin: .zero, size: NSSize(width: px, height: px))
 
-        // JPEG has no alpha — fill white first
         if fileType == .jpeg {
             NSColor.white.setFill()
             bounds.fill()
         }
-        let bgOpacity = fileType == .jpeg ? max(config.backgroundOpacity, 1.0) : config.backgroundOpacity
-        NSColor(config.backgroundColor).withAlphaComponent(bgOpacity).setFill()
+        NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity).setFill()
         bounds.fill()
 
         let padding = CGFloat(px) * 0.08
@@ -115,6 +113,20 @@ enum ExportService {
 
         try (pdfData as Data).write(to: url)
     }
+}
+
+// MARK: - Geometry
+
+func aspectFitRect(imageSize: NSSize, in rect: NSRect) -> NSRect {
+    guard imageSize.width > 0, imageSize.height > 0 else { return rect }
+    let scale = min(rect.width / imageSize.width, rect.height / imageSize.height)
+    let w = imageSize.width * scale
+    let h = imageSize.height * scale
+    return NSRect(
+        x: rect.minX + (rect.width - w) / 2,
+        y: rect.minY + (rect.height - h) / 2,
+        width: w, height: h
+    )
 }
 
 // MARK: - Errors

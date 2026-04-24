@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ConfigPanelView: View {
     @EnvironmentObject var config: SymbolConfig
+    @State private var exportedName: String?
 
     var body: some View {
         Form {
@@ -49,9 +50,12 @@ struct ConfigPanelView: View {
             }
             .pickerStyle(.segmented)
 
+            let colorless = config.renderingMode == .monochrome || config.renderingMode == .multicolor
             ColorRowView(label: "Primary", color: $config.primaryColor) {
                 config.primaryColor = .black
             }
+            .disabled(colorless)
+            .opacity(colorless ? 0.3 : 1)
 
             ColorRowView(label: "Secondary", color: $config.secondaryColor) {
                 config.secondaryColor = .accentColor
@@ -104,6 +108,10 @@ struct ConfigPanelView: View {
             if config.exportPreset == .custom {
                 HStack {
                     TextField("Pixels", value: $config.customSize, format: .number)
+                        .onChange(of: config.customSize) { v in
+                            if v < 1    { config.customSize = 1 }
+                            if v > 8192 { config.customSize = 8192 }
+                        }
                     Text("px × \(config.customSize) px")
                         .foregroundStyle(.secondary)
                         .font(.caption)
@@ -136,6 +144,13 @@ struct ConfigPanelView: View {
             }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut("e", modifiers: .command)
+
+            if let name = exportedName {
+                Label(name, systemImage: "checkmark.circle")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .transition(.opacity)
+            }
         }
     }
 
@@ -152,6 +167,12 @@ struct ConfigPanelView: View {
 
         do {
             try ExportService.export(config: config, to: url)
+            withAnimation {
+                exportedName = url.lastPathComponent
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation { exportedName = nil }
+            }
         } catch {
             let alert = NSAlert(error: error)
             alert.runModal()
