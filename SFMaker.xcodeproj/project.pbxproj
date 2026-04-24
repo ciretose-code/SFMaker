@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fallback-symbols.txt"; sourceTree = "<group>"; };
-		4BF4EF6CEB1E960114611F44 /* SFMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BF4EF6CEB1E960114611F44 /* SF Image Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SF Image Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolBrowserView.swift; sourceTree = "<group>"; };
 		5A637A85C2B5B15018834CF7 /* SymbolConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolConfig.swift; sourceTree = "<group>"; };
 		7B73412C2F9AF346002060A5 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 		2AA32F7BC6EC7785774E8632 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4BF4EF6CEB1E960114611F44 /* SFMaker.app */,
+				4BF4EF6CEB1E960114611F44 /* SF Image Maker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,8 +119,8 @@
 			name = SFMaker;
 			packageProductDependencies = (
 			);
-			productName = SFMaker;
-			productReference = 4BF4EF6CEB1E960114611F44 /* SFMaker.app */;
+			productName = "SF Image Maker";
+			productReference = 4BF4EF6CEB1E960114611F44 /* SF Image Maker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
