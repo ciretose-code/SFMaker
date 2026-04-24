@@ -21,7 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		10576946F99114B0F437C6D5 /* SFMaker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SFMaker.entitlements; sourceTree = "<group>"; };
 		3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fallback-symbols.txt"; sourceTree = "<group>"; };
 		4BF4EF6CEB1E960114611F44 /* SFMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolBrowserView.swift; sourceTree = "<group>"; };
@@ -94,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				AF8C1BDD88ECAB10196366F7 /* ContentView.swift */,
-				10576946F99114B0F437C6D5 /* SFMaker.entitlements */,
 				D16F7538423601DFFD91527F /* SFMakerApp.swift */,
 				45015644B2CC8E5AC9039E3D /* Models */,
 				18BD1742B321272D102CA866 /* Resources */,
@@ -313,7 +311,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SFMaker/SFMaker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -343,7 +340,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SFMaker/SFMaker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

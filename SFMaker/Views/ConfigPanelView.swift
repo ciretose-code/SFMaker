@@ -53,14 +53,17 @@ struct ConfigPanelView: View {
                 config.primaryColor = .black
             }
 
-            if config.renderingMode == .palette {
-                ColorRowView(label: "Secondary", color: $config.secondaryColor) {
-                    config.secondaryColor = .accentColor
-                }
-                ColorRowView(label: "Tertiary", color: $config.tertiaryColor) {
-                    config.tertiaryColor = .gray
-                }
+            ColorRowView(label: "Secondary", color: $config.secondaryColor) {
+                config.secondaryColor = .accentColor
             }
+            .disabled(config.renderingMode != .palette)
+            .opacity(config.renderingMode == .palette ? 1 : 0.3)
+
+            ColorRowView(label: "Tertiary", color: $config.tertiaryColor) {
+                config.tertiaryColor = .gray
+            }
+            .disabled(config.renderingMode != .palette)
+            .opacity(config.renderingMode == .palette ? 1 : 0.3)
         }
     }
 

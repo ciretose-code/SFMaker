@@ -7,9 +7,14 @@ struct PreviewView: View {
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
-            SymbolImageView()
-                .frame(maxWidth: 360, maxHeight: 360)
-                .padding()
+            SymbolImageView(
+                symbolName: config.symbolName,
+                symbolConfiguration: NSImage.SymbolConfiguration.make(from: config),
+                backgroundColor: NSColor(config.backgroundColor),
+                backgroundOpacity: config.backgroundOpacity
+            )
+            .frame(maxWidth: 360, maxHeight: 360)
+            .padding()
             Text(config.symbolName)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -24,7 +29,10 @@ struct PreviewView: View {
 }
 
 struct SymbolImageView: NSViewRepresentable {
-    @EnvironmentObject var config: SymbolConfig
+    let symbolName: String
+    let symbolConfiguration: NSImage.SymbolConfiguration
+    let backgroundColor: NSColor
+    let backgroundOpacity: Double
 
     func makeNSView(context: Context) -> CheckerboardImageView {
         let view = CheckerboardImageView()
@@ -39,9 +47,8 @@ struct SymbolImageView: NSViewRepresentable {
     }
 
     private func update(_ view: CheckerboardImageView) {
-        let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
-        guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
-              let configured = base.withSymbolConfiguration(symbolCfg)
+        guard let base = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil),
+              let configured = base.withSymbolConfiguration(symbolConfiguration)
         else { return }
 
         let px = 300
@@ -59,7 +66,7 @@ struct SymbolImageView: NSViewRepresentable {
         NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
 
         let bounds = NSRect(origin: .zero, size: NSSize(width: px, height: px))
-        NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity).setFill()
+        backgroundColor.withAlphaComponent(backgroundOpacity).setFill()
         bounds.fill()
 
         let padding: CGFloat = 24
@@ -74,7 +81,7 @@ struct SymbolImageView: NSViewRepresentable {
         let rendered = NSImage(size: NSSize(width: px, height: px))
         rendered.addRepresentation(rep)
         view.image = rendered
-        view.showsCheckerboard = config.backgroundOpacity < 0.01
+        view.showsCheckerboard = backgroundOpacity < 0.01
     }
 }
 
