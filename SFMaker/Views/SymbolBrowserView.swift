@@ -58,7 +58,7 @@ struct SymbolBrowserView: View {
     private var symbolGrid: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 60, maximum: 80))], spacing: 8) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 76, maximum: 96))], spacing: 8) {
                     if let match = exactMatch {
                         SymbolCell(name: match, isSelected: config.symbolName == match)
                             .onTapGesture { config.symbolName = match; searchText = "" }
@@ -86,18 +86,29 @@ private struct SymbolCell: View {
     let isSelected: Bool
 
     var body: some View {
-        Image(systemName: name)
-            .font(.system(size: 24))
-            .frame(width: 60, height: 60)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(isSelected ? Color.accentColor.opacity(0.2) : Color.clear)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(isSelected ? Color.accentColor : Color.clear, lineWidth: 1.5)
-            )
-            .help(name)
-            .contentShape(Rectangle())
+        VStack(spacing: 4) {
+            Image(systemName: name)
+                .font(.system(size: 24))
+                .frame(width: 60, height: 44)
+
+            Text(name)
+                .font(.system(size: 8))
+                .foregroundStyle(.secondary)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .frame(width: 68)
+        }
+        .padding(.vertical, 4)
+        .frame(width: 76)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(isSelected ? Color.accentColor.opacity(0.2) : Color.clear)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(isSelected ? Color.accentColor : Color.clear, lineWidth: 1.5)
+        )
+        .help(name)
+        .contentShape(Rectangle())
     }
 }
