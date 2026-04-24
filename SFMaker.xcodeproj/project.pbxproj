@@ -13,6 +13,7 @@
 		09E4FD6B9C7D55BE7B65ED97 /* ColorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE25619ACB4101480D2533B /* ColorRowView.swift */; };
 		3A9B1DD00292B42C47340AFA /* SymbolConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A637A85C2B5B15018834CF7 /* SymbolConfig.swift */; };
 		5A6CA75AF7774A2FDCAD62A4 /* fallback-symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */; };
+		7B73412D2F9AF346002060A5 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7B73412C2F9AF346002060A5 /* AppIcon.icon */; };
 		98ABACDC6CB8E411016AA9B9 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */; };
 		9B4A6C33EE469C80A2710E79 /* SymbolBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */; };
 		9BFFC765A57EDAACBFB5D4FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8C1BDD88ECAB10196366F7 /* ContentView.swift */; };
@@ -25,6 +26,7 @@
 		4BF4EF6CEB1E960114611F44 /* SFMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolBrowserView.swift; sourceTree = "<group>"; };
 		5A637A85C2B5B15018834CF7 /* SymbolConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolConfig.swift; sourceTree = "<group>"; };
+		7B73412C2F9AF346002060A5 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		927DA1F8CC40C6C857771875 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		9EEB87BA96761E9CA859EC54 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
 		AF8C1BDD88ECAB10196366F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +40,7 @@
 		18BD1742B321272D102CA866 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7B73412C2F9AF346002060A5 /* AppIcon.icon */,
 				3349319D9ADE7FDD9E796C33 /* fallback-symbols.txt */,
 			);
 			path = Resources;
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A6CA75AF7774A2FDCAD62A4 /* fallback-symbols.txt in Resources */,
+				7B73412D2F9AF346002060A5 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +323,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SFMaker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SF Image Maker";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -347,6 +353,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SFMaker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SF Image Maker";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

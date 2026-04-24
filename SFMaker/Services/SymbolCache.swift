@@ -27,13 +27,11 @@ final class SymbolCache: ObservableObject {
             symbols = cached
             source = .cache
         }
-
-        Task { await checkForUpdates() }
     }
 
     // MARK: - Version check
 
-    private func checkForUpdates() async {
+    func checkForUpdates() async {
         let fm = FileManager.default
 
         guard fm.fileExists(atPath: plistURL.path),

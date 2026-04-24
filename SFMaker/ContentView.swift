@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var config: SymbolConfig
+    @EnvironmentObject var symbolCache: SymbolCache
 
     var body: some View {
         NavigationSplitView {
@@ -15,5 +16,6 @@ struct ContentView: View {
                 .navigationSplitViewColumnWidth(min: 260, ideal: 300)
         }
         .navigationTitle("SF Image Maker — \(config.symbolName)")
+        .task { await symbolCache.checkForUpdates() }
     }
 }
