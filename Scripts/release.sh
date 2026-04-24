@@ -27,6 +27,7 @@ ARCHIVE_PATH="build/${SCHEME}.xcarchive"
 EXPORT_PATH="build/export"
 
 mkdir -p build
+rm -rf "$ARCHIVE_PATH" "$EXPORT_PATH"
 
 # ── 1. Increment build number ──────────────────────────────────────────────────
 VERSION=$(xcodebuild -project "$PROJECT" -scheme "$SCHEME" -showBuildSettings 2>/dev/null \
