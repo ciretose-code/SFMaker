@@ -16,10 +16,7 @@ private enum Keys {
     static let exportHeight      = "exportHeight"
     static let lockAspectRatio   = "lockAspectRatio"
     static let exportFormat      = "exportFormat"
-    static let recentSymbols     = "recentSymbols"
 }
-
-private let maxRecents = 50
 
 @MainActor
 final class SymbolConfig: ObservableObject {
@@ -36,7 +33,6 @@ final class SymbolConfig: ObservableObject {
     @Published var exportHeight: Int
     @Published var lockAspectRatio: Bool
     @Published var exportFormat: ExportFormat
-    @Published var recentSymbols: [String]
 
     private var bag = Set<AnyCancellable>()
 
@@ -55,22 +51,8 @@ final class SymbolConfig: ObservableObject {
         exportHeight     = ud.object(forKey: Keys.exportHeight) as? Int ?? 512
         lockAspectRatio  = ud.object(forKey: Keys.lockAspectRatio) as? Bool ?? true
         exportFormat     = ExportFormat(rawValue: ud.string(forKey: Keys.exportFormat) ?? "") ?? .png
-        recentSymbols    = ud.stringArray(forKey: Keys.recentSymbols) ?? []
 
         setupPersistence()
-    }
-
-    func selectSymbol(_ name: String) {
-        symbolName = name
-        recentSymbols.removeAll { $0 == name }
-        recentSymbols.insert(name, at: 0)
-        if recentSymbols.count > maxRecents {
-            recentSymbols = Array(recentSymbols.prefix(maxRecents))
-        }
-    }
-
-    func clearRecents() {
-        recentSymbols = []
     }
 
     private func setupPersistence() {
@@ -88,7 +70,6 @@ final class SymbolConfig: ObservableObject {
         $exportHeight.dropFirst().sink { ud.set($0, forKey: Keys.exportHeight) }.store(in: &bag)
         $lockAspectRatio.dropFirst().sink { ud.set($0, forKey: Keys.lockAspectRatio) }.store(in: &bag)
         $exportFormat.dropFirst().sink { ud.set($0.rawValue, forKey: Keys.exportFormat) }.store(in: &bag)
-        $recentSymbols.dropFirst().sink { ud.set($0, forKey: Keys.recentSymbols) }.store(in: &bag)
     }
 
     // MARK: - Nested types
