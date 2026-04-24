@@ -92,28 +92,33 @@ struct ConfigPanelView: View {
 
     private var exportSection: some View {
         Section("Export") {
-            HStack(spacing: 8) {
-                TextField("Width", value: $config.exportWidth, format: .number)
-                    .frame(maxWidth: .infinity)
-                    .onChange(of: config.exportWidth) { newVal in
-                        if config.lockAspectRatio {
-                            config.exportHeight = newVal
-                        }
-                    }
-                Text("×")
-                    .foregroundStyle(.secondary)
-                TextField("Height", value: $config.exportHeight, format: .number)
-                    .frame(maxWidth: .infinity)
-                    .onChange(of: config.exportHeight) { newVal in
-                        if config.lockAspectRatio {
-                            config.exportWidth = newVal
-                        }
-                    }
-                Text("px")
-                    .foregroundStyle(.secondary)
+            Picker("Size", selection: $config.exportPreset) {
+                ForEach(SymbolConfig.ExportPreset.allCases) { preset in
+                    Text(preset.rawValue).tag(preset)
+                }
             }
 
-            Toggle("Lock aspect ratio", isOn: $config.lockAspectRatio)
+            if config.exportPreset == .custom {
+                HStack {
+                    TextField("Pixels", value: $config.customSize, format: .number)
+                    Text("px × \(config.customSize) px")
+                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                }
+            } else {
+                Picker("Scale", selection: $config.exportScale) {
+                    ForEach(SymbolConfig.ExportScale.allCases) { s in
+                        Text(s.rawValue).tag(s)
+                    }
+                }
+                .pickerStyle(.segmented)
+
+                LabeledContent("Output") {
+                    Text("\(config.exportPixelSize) × \(config.exportPixelSize) px")
+                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                }
+            }
 
             Picker("Format", selection: $config.exportFormat) {
                 ForEach(SymbolConfig.ExportFormat.allCases) { f in
@@ -136,7 +141,8 @@ struct ConfigPanelView: View {
     private func export() {
         let panel = NSSavePanel()
         panel.allowedContentTypes = [config.exportFormat.utType]
-        panel.nameFieldStringValue = "\(config.symbolName).\(config.exportFormat.fileExtension)"
+        let scaleSuffix = config.exportPreset == .custom ? "" : config.exportScale.rawValue
+        panel.nameFieldStringValue = "\(config.symbolName)\(scaleSuffix).\(config.exportFormat.fileExtension)"
         panel.canCreateDirectories = true
 
         guard panel.runModal() == .OK, let url = panel.url else { return }

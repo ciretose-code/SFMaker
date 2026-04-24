@@ -19,40 +19,49 @@ enum ExportService {
         to url: URL,
         using fileType: NSBitmapImageRep.FileType
     ) throws {
-        let targetSize = NSSize(width: config.exportWidth, height: config.exportHeight)
+        let px = config.exportPixelSize
         let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
 
         guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
               let configured = base.withSymbolConfiguration(symbolCfg)
         else { throw ExportError.symbolNotFound(config.symbolName) }
 
-        let offscreen = NSImage(size: targetSize)
-        offscreen.lockFocus()
+        // Render directly into a bitmap at exact pixel dimensions — no lockFocus,
+        // which would multiply by the screen's backing scale factor.
+        guard let rep = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: px, pixelsHigh: px,
+            bitsPerSample: 8, samplesPerPixel: 4,
+            hasAlpha: true, isPlanar: false,
+            colorSpaceName: .calibratedRGB,
+            bytesPerRow: 0, bitsPerPixel: 0
+        ) else { throw ExportError.renderFailed }
+        rep.size = NSSize(width: px, height: px)
 
-        // JPEG has no alpha channel — force white base then overlay bg color
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+
+        let bounds = NSRect(origin: .zero, size: NSSize(width: px, height: px))
+
+        // JPEG has no alpha — fill white first
         if fileType == .jpeg {
             NSColor.white.setFill()
-            NSRect(origin: .zero, size: targetSize).fill()
+            bounds.fill()
         }
         let bgOpacity = fileType == .jpeg ? max(config.backgroundOpacity, 1.0) : config.backgroundOpacity
-        let bgColor = NSColor(config.backgroundColor).withAlphaComponent(bgOpacity)
-        bgColor.setFill()
-        NSRect(origin: .zero, size: targetSize).fill()
+        NSColor(config.backgroundColor).withAlphaComponent(bgOpacity).setFill()
+        bounds.fill()
 
-        // Symbol aspect-fit centered within padded area
-        let padding = targetSize.width * 0.08
-        let available = NSRect(
-            x: padding, y: padding,
-            width: targetSize.width - padding * 2,
-            height: targetSize.height - padding * 2
-        )
+        let padding = CGFloat(px) * 0.08
+        let available = NSRect(x: padding, y: padding,
+                               width: CGFloat(px) - padding * 2,
+                               height: CGFloat(px) - padding * 2)
         let fitRect = aspectFitRect(imageSize: configured.size, in: available)
         configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
-        offscreen.unlockFocus()
 
-        guard let tiffData = offscreen.tiffRepresentation,
-              let rep = NSBitmapImageRep(data: tiffData),
-              let data = rep.representation(using: fileType, properties: jpegProperties(fileType))
+        NSGraphicsContext.restoreGraphicsState()
+
+        guard let data = rep.representation(using: fileType, properties: jpegProperties(fileType))
         else { throw ExportError.renderFailed }
 
         try data.write(to: url)
@@ -66,7 +75,8 @@ enum ExportService {
     // MARK: - PDF
 
     private static func exportPDF(config: SymbolConfig, to url: URL) throws {
-        let targetSize = CGSize(width: config.exportWidth, height: config.exportHeight)
+        let px = config.exportPixelSize
+        let targetSize = CGSize(width: px, height: px)
         let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
 
         guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
@@ -88,16 +98,14 @@ enum ExportService {
 
         ctx.beginPDFPage(nil)
 
-        let bgColor = NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity)
-        bgColor.setFill()
-        CGRect(origin: .zero, size: targetSize).fill()
+        let bounds = CGRect(origin: .zero, size: targetSize)
+        NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity).setFill()
+        bounds.fill()
 
-        let padding = targetSize.width * 0.08
-        let available = NSRect(
-            x: padding, y: padding,
-            width: targetSize.width - padding * 2,
-            height: targetSize.height - padding * 2
-        )
+        let padding = CGFloat(px) * 0.08
+        let available = NSRect(x: padding, y: padding,
+                               width: CGFloat(px) - padding * 2,
+                               height: CGFloat(px) - padding * 2)
         let fitRect = aspectFitRect(imageSize: configured.size, in: available)
         configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
 

@@ -13,7 +13,7 @@ struct PreviewView: View {
             Text(config.symbolName)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            Text("\(config.exportWidth) × \(config.exportHeight) px  ·  \(config.exportFormat.rawValue)")
+            Text("\(config.exportPixelSize) × \(config.exportPixelSize) px  ·  \(config.exportFormat.rawValue)")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
             Spacer()
