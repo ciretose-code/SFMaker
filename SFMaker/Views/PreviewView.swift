@@ -44,26 +44,35 @@ struct SymbolImageView: NSViewRepresentable {
               let configured = base.withSymbolConfiguration(symbolCfg)
         else { return }
 
-        let previewSize = NSSize(width: 300, height: 300)
-        let rendered = NSImage(size: previewSize)
-        rendered.lockFocus()
+        let px = 300
+        guard let rep = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: px, pixelsHigh: px,
+            bitsPerSample: 8, samplesPerPixel: 4,
+            hasAlpha: true, isPlanar: false,
+            colorSpaceName: .calibratedRGB,
+            bytesPerRow: 0, bitsPerPixel: 0
+        ) else { return }
+        rep.size = NSSize(width: px, height: px)
 
-        // Background
-        let bgColor = NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity)
-        bgColor.setFill()
-        NSRect(origin: .zero, size: previewSize).fill()
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
 
-        // Symbol — aspect-fit centered within padded area
+        let bounds = NSRect(origin: .zero, size: NSSize(width: px, height: px))
+        NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity).setFill()
+        bounds.fill()
+
         let padding: CGFloat = 24
-        let availableRect = NSRect(
-            x: padding, y: padding,
-            width: previewSize.width - padding * 2,
-            height: previewSize.height - padding * 2
-        )
-        let fitRect = aspectFitRect(imageSize: configured.size, in: availableRect)
+        let available = NSRect(x: padding, y: padding,
+                               width: CGFloat(px) - padding * 2,
+                               height: CGFloat(px) - padding * 2)
+        let fitRect = aspectFitRect(imageSize: configured.size, in: available)
         configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
-        rendered.unlockFocus()
 
+        NSGraphicsContext.restoreGraphicsState()
+
+        let rendered = NSImage(size: NSSize(width: px, height: px))
+        rendered.addRepresentation(rep)
         view.image = rendered
         view.showsCheckerboard = config.backgroundOpacity < 0.01
     }
