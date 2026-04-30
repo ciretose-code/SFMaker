@@ -8,14 +8,16 @@ struct PreviewView: View {
         VStack(spacing: 12) {
             Spacer()
             SymbolImageView(
+                imageSource: config.imageSource,
                 symbolName: config.symbolName,
+                emojiText: config.emojiText,
                 symbolConfiguration: NSImage.SymbolConfiguration.make(from: config),
                 backgroundColor: NSColor(config.backgroundColor),
                 backgroundOpacity: config.backgroundOpacity
             )
             .frame(maxWidth: 360, maxHeight: 360)
             .padding()
-            Text(config.symbolName)
+            Text(config.imageSource == .sfSymbol ? config.symbolName : config.emojiText)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             Text("\(config.exportPixelSize) × \(config.exportPixelSize) px  ·  \(config.exportFormat.rawValue)")
@@ -29,7 +31,9 @@ struct PreviewView: View {
 }
 
 struct SymbolImageView: NSViewRepresentable {
+    let imageSource: SymbolConfig.ImageSource
     let symbolName: String
+    let emojiText: String
     let symbolConfiguration: NSImage.SymbolConfiguration
     let backgroundColor: NSColor
     let backgroundOpacity: Double
@@ -47,10 +51,6 @@ struct SymbolImageView: NSViewRepresentable {
     }
 
     private func update(_ view: CheckerboardImageView) {
-        guard let base = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil),
-              let configured = base.withSymbolConfiguration(symbolConfiguration)
-        else { return }
-
         let px = 300
         guard let rep = NSBitmapImageRep(
             bitmapDataPlanes: nil,
@@ -73,8 +73,17 @@ struct SymbolImageView: NSViewRepresentable {
         let available = NSRect(x: padding, y: padding,
                                width: CGFloat(px) - padding * 2,
                                height: CGFloat(px) - padding * 2)
-        let fitRect = aspectFitRect(imageSize: configured.size, in: available)
-        configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+
+        switch imageSource {
+        case .sfSymbol:
+            if let base = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil),
+               let configured = base.withSymbolConfiguration(symbolConfiguration) {
+                let fitRect = aspectFitRect(imageSize: configured.size, in: available)
+                configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+            }
+        case .emoji:
+            drawEmoji(emojiText, in: available)
+        }
 
         NSGraphicsContext.restoreGraphicsState()
 

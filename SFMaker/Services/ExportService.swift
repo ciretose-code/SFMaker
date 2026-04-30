@@ -20,11 +20,16 @@ enum ExportService {
         using fileType: NSBitmapImageRep.FileType
     ) throws {
         let px = config.exportPixelSize
-        let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
 
-        guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
-              let configured = base.withSymbolConfiguration(symbolCfg)
-        else { throw ExportError.symbolNotFound(config.symbolName) }
+        // Resolve the symbol image before opening a graphics context so failures are clean.
+        var symbolImage: NSImage? = nil
+        if config.imageSource == .sfSymbol {
+            let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
+            guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
+                  let configured = base.withSymbolConfiguration(symbolCfg)
+            else { throw ExportError.symbolNotFound(config.symbolName) }
+            symbolImage = configured
+        }
 
         // Render directly into a bitmap at exact pixel dimensions — no lockFocus,
         // which would multiply by the screen's backing scale factor.
@@ -54,8 +59,13 @@ enum ExportService {
         let available = NSRect(x: padding, y: padding,
                                width: CGFloat(px) - padding * 2,
                                height: CGFloat(px) - padding * 2)
-        let fitRect = aspectFitRect(imageSize: configured.size, in: available)
-        configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+
+        if let sym = symbolImage {
+            let fitRect = aspectFitRect(imageSize: sym.size, in: available)
+            sym.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+        } else {
+            drawEmoji(config.emojiText, in: available)
+        }
 
         NSGraphicsContext.restoreGraphicsState()
 
@@ -75,11 +85,15 @@ enum ExportService {
     private static func exportPDF(config: SymbolConfig, to url: URL) throws {
         let px = config.exportPixelSize
         let targetSize = CGSize(width: px, height: px)
-        let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
 
-        guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
-              let configured = base.withSymbolConfiguration(symbolCfg)
-        else { throw ExportError.symbolNotFound(config.symbolName) }
+        var symbolImage: NSImage? = nil
+        if config.imageSource == .sfSymbol {
+            let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
+            guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
+                  let configured = base.withSymbolConfiguration(symbolCfg)
+            else { throw ExportError.symbolNotFound(config.symbolName) }
+            symbolImage = configured
+        }
 
         let pdfData = NSMutableData()
         guard let consumer = CGDataConsumer(data: pdfData as CFMutableData) else {
@@ -104,8 +118,13 @@ enum ExportService {
         let available = NSRect(x: padding, y: padding,
                                width: CGFloat(px) - padding * 2,
                                height: CGFloat(px) - padding * 2)
-        let fitRect = aspectFitRect(imageSize: configured.size, in: available)
-        configured.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+
+        if let sym = symbolImage {
+            let fitRect = aspectFitRect(imageSize: sym.size, in: available)
+            sym.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
+        } else {
+            drawEmoji(config.emojiText, in: available)
+        }
 
         ctx.endPDFPage()
         ctx.closePDF()
@@ -113,6 +132,29 @@ enum ExportService {
 
         try (pdfData as Data).write(to: url)
     }
+}
+
+// MARK: - Emoji rendering
+
+func drawEmoji(_ text: String, in rect: NSRect) {
+    let trimmed = text.trimmingCharacters(in: .whitespaces)
+    guard !trimmed.isEmpty else { return }
+    let refFontSize: CGFloat = 1000
+    let refAttrs: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: refFontSize)]
+    let refStr = NSAttributedString(string: trimmed, attributes: refAttrs)
+    let refMeasured = refStr.size()
+    guard refMeasured.width > 0, refMeasured.height > 0 else { return }
+    let scale = min(rect.width / refMeasured.width, rect.height / refMeasured.height)
+    let font = NSFont.systemFont(ofSize: refFontSize * scale)
+    let attrs: [NSAttributedString.Key: Any] = [.font: font]
+    let str = NSAttributedString(string: trimmed, attributes: attrs)
+    let size = str.size()
+    str.draw(in: NSRect(
+        x: rect.midX - size.width / 2,
+        y: rect.midY - size.height / 2,
+        width: size.width,
+        height: size.height
+    ))
 }
 
 // MARK: - Geometry

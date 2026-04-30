@@ -17,6 +17,8 @@ private enum Keys {
     static let exportScale       = "exportScale"
     static let customSize        = "customSize"
     static let exportFormat      = "exportFormat"
+    static let imageSource       = "imageSource"
+    static let emojiText         = "emojiText"
 }
 
 @MainActor
@@ -34,6 +36,8 @@ final class SymbolConfig: ObservableObject {
     @Published var exportScale: ExportScale
     @Published var customSize: Int
     @Published var exportFormat: ExportFormat
+    @Published var imageSource: ImageSource
+    @Published var emojiText: String
 
     var exportPixelSize: Int {
         let raw = exportPreset == .custom ? customSize : exportPreset.pointSize * exportScale.factor
@@ -57,6 +61,8 @@ final class SymbolConfig: ObservableObject {
         exportScale       = ExportScale(rawValue: ud.string(forKey: Keys.exportScale) ?? "") ?? .x1
         customSize        = ud.object(forKey: Keys.customSize) as? Int ?? 512
         exportFormat      = ExportFormat(rawValue: ud.string(forKey: Keys.exportFormat) ?? "") ?? .png
+        imageSource       = ImageSource(rawValue: ud.string(forKey: Keys.imageSource) ?? "") ?? .sfSymbol
+        emojiText         = ud.string(forKey: Keys.emojiText) ?? "😀"
 
         setupPersistence()
     }
@@ -76,6 +82,8 @@ final class SymbolConfig: ObservableObject {
         $exportScale.dropFirst().sink       { ud.set($0.rawValue, forKey: Keys.exportScale) }.store(in: &bag)
         $customSize.dropFirst().sink        { ud.set($0, forKey: Keys.customSize) }.store(in: &bag)
         $exportFormat.dropFirst().sink      { ud.set($0.rawValue, forKey: Keys.exportFormat) }.store(in: &bag)
+        $imageSource.dropFirst().sink      { ud.set($0.rawValue, forKey: Keys.imageSource) }.store(in: &bag)
+        $emojiText.dropFirst().sink        { ud.set($0, forKey: Keys.emojiText) }.store(in: &bag)
     }
 
     // MARK: - Nested types
@@ -220,6 +228,12 @@ final class SymbolConfig: ObservableObject {
             case .pdf:  return .pdf
             }
         }
+    }
+
+    enum ImageSource: String, CaseIterable, Identifiable {
+        case sfSymbol = "SF Symbol"
+        case emoji    = "Emoji"
+        var id: String { rawValue }
     }
 }
 

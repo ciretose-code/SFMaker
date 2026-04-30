@@ -6,8 +6,10 @@ struct ConfigPanelView: View {
 
     var body: some View {
         Form {
-            symbolSection
-            renderingSection
+            if config.imageSource == .sfSymbol {
+                symbolSection
+                renderingSection
+            }
             backgroundSection
             exportSection
         }
@@ -160,7 +162,8 @@ struct ConfigPanelView: View {
         let panel = NSSavePanel()
         panel.allowedContentTypes = [config.exportFormat.utType]
         let scaleSuffix = config.exportPreset == .custom ? "" : config.exportScale.rawValue
-        panel.nameFieldStringValue = "\(config.symbolName)\(scaleSuffix).\(config.exportFormat.fileExtension)"
+        let baseName = config.imageSource == .sfSymbol ? config.symbolName : (config.emojiText.isEmpty ? "emoji" : config.emojiText)
+        panel.nameFieldStringValue = "\(baseName)\(scaleSuffix).\(config.exportFormat.fileExtension)"
         panel.canCreateDirectories = true
 
         guard panel.runModal() == .OK, let url = panel.url else { return }

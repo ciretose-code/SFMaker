@@ -15,7 +15,14 @@ struct ContentView: View {
             ConfigPanelView()
                 .navigationSplitViewColumnWidth(min: 260, ideal: 300)
         }
-        .navigationTitle("SF Image Maker — \(config.symbolName)")
+        .navigationTitle(navigationTitle)
         .task { await symbolCache.checkForUpdates() }
+    }
+
+    private var navigationTitle: String {
+        let suffix = config.imageSource == .sfSymbol
+            ? config.symbolName
+            : (config.emojiText.isEmpty ? "Emoji" : config.emojiText)
+        return "SF Image Maker — \(suffix)"
     }
 }
