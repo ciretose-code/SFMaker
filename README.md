@@ -32,6 +32,8 @@ Download the latest DMG from the [Releases](../../releases) page, open it, and d
 3. **Set export options** — choose a size preset and format
 4. **Export** — press **⌘E** or click the Export button, pick a save location, done
 
+Use **SF Image Maker -> Check for Updates…** to compare your installed build against the latest GitHub release.
+
 ## Building from source
 
 Requires Xcode 15+.

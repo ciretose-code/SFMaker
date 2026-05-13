@@ -17,6 +17,7 @@
 		98ABACDC6CB8E411016AA9B9 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */; };
 		9B4A6C33EE469C80A2710E79 /* SymbolBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554B2BF4E86A3EF81731F49F /* SymbolBrowserView.swift */; };
 		9BFFC765A57EDAACBFB5D4FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8C1BDD88ECAB10196366F7 /* ContentView.swift */; };
+		C0A1D82E6F1A4C3D8E5B9F10 /* ReleaseCheckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1D82E6F1A4C3D8E5B9F11 /* ReleaseCheckManager.swift */; };
 		DBA3F21C5D4D2B3BECBBA072 /* SFMakerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16F7538423601DFFD91527F /* SFMakerApp.swift */; };
 		A1B2C3D4E5F60001A2B3C4D5 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E4F5A60001B2C3D4E5 /* EmojiProvider.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +32,7 @@
 		9EEB87BA96761E9CA859EC54 /* SymbolCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolCache.swift; sourceTree = "<group>"; };
 		AF8C1BDD88ECAB10196366F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AFEAC05A0987147945869D6B /* ConfigPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPanelView.swift; sourceTree = "<group>"; };
+		C0A1D82E6F1A4C3D8E5B9F11 /* ReleaseCheckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseCheckManager.swift; sourceTree = "<group>"; };
 		D16F7538423601DFFD91527F /* SFMakerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFMakerApp.swift; sourceTree = "<group>"; };
 		DAE25619ACB4101480D2533B /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
 		EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				EBB74FBD4D7ED9DC19C9D33A /* ExportService.swift */,
 				B1C2D3E4F5A60001B2C3D4E5 /* EmojiProvider.swift */,
+				C0A1D82E6F1A4C3D8E5B9F11 /* ReleaseCheckManager.swift */,
 				9EEB87BA96761E9CA859EC54 /* SymbolCache.swift */,
 			);
 			path = Services;
@@ -181,6 +184,7 @@
 				9BFFC765A57EDAACBFB5D4FF /* ContentView.swift in Sources */,
 				98ABACDC6CB8E411016AA9B9 /* ExportService.swift in Sources */,
 				076494204EB5D7BA69AA1488 /* PreviewView.swift in Sources */,
+				C0A1D82E6F1A4C3D8E5B9F10 /* ReleaseCheckManager.swift in Sources */,
 				DBA3F21C5D4D2B3BECBBA072 /* SFMakerApp.swift in Sources */,
 				9B4A6C33EE469C80A2710E79 /* SymbolBrowserView.swift in Sources */,
 				001FEDE5B0DE6DB4440F2192 /* SymbolCache.swift in Sources */,
