@@ -19,9 +19,49 @@ enum ExportService {
         to url: URL,
         using fileType: NSBitmapImageRep.FileType
     ) throws {
+        let rep = try makeBitmapRepresentation(config: config, prefillWhite: fileType == .jpeg)
+
+        guard let data = rep.representation(using: fileType, properties: jpegProperties(fileType))
+        else { throw ExportError.renderFailed }
+
+        try data.write(to: url)
+    }
+
+    private static func jpegProperties(_ fileType: NSBitmapImageRep.FileType) -> [NSBitmapImageRep.PropertyKey: Any] {
+        guard fileType == .jpeg else { return [:] }
+        return [.compressionFactor: 0.9]
+    }
+
+    // MARK: - PDF
+
+    private static func exportPDF(config: SymbolConfig, to url: URL) throws {
+        let px = config.exportPixelSize
+        let targetSize = CGSize(width: px, height: px)
+        let rep = try makeBitmapRepresentation(config: config, prefillWhite: false)
+        guard let cgImage = rep.cgImage else { throw ExportError.renderFailed }
+
+        let pdfData = NSMutableData()
+        guard let consumer = CGDataConsumer(data: pdfData as CFMutableData) else {
+            throw ExportError.renderFailed
+        }
+
+        var mediaBox = CGRect(origin: .zero, size: targetSize)
+        guard let ctx = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
+            throw ExportError.renderFailed
+        }
+
+        ctx.beginPDFPage(nil)
+        let bounds = CGRect(origin: .zero, size: targetSize)
+        ctx.draw(cgImage, in: bounds)
+        ctx.endPDFPage()
+        ctx.closePDF()
+
+        try (pdfData as Data).write(to: url)
+    }
+
+    private static func makeBitmapRepresentation(config: SymbolConfig, prefillWhite: Bool) throws -> NSBitmapImageRep {
         let px = config.exportPixelSize
 
-        // Resolve the symbol image before opening a graphics context so failures are clean.
         var symbolImage: NSImage? = nil
         if config.imageSource == .sfSymbol {
             let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
@@ -31,8 +71,6 @@ enum ExportService {
             symbolImage = configured
         }
 
-        // Render directly into a bitmap at exact pixel dimensions — no lockFocus,
-        // which would multiply by the screen's backing scale factor.
         guard let rep = NSBitmapImageRep(
             bitmapDataPlanes: nil,
             pixelsWide: px, pixelsHigh: px,
@@ -48,7 +86,7 @@ enum ExportService {
 
         let bounds = NSRect(origin: .zero, size: NSSize(width: px, height: px))
 
-        if fileType == .jpeg {
+        if prefillWhite {
             NSColor.white.setFill()
             bounds.fill()
         }
@@ -68,69 +106,7 @@ enum ExportService {
         }
 
         NSGraphicsContext.restoreGraphicsState()
-
-        guard let data = rep.representation(using: fileType, properties: jpegProperties(fileType))
-        else { throw ExportError.renderFailed }
-
-        try data.write(to: url)
-    }
-
-    private static func jpegProperties(_ fileType: NSBitmapImageRep.FileType) -> [NSBitmapImageRep.PropertyKey: Any] {
-        guard fileType == .jpeg else { return [:] }
-        return [.compressionFactor: 0.9]
-    }
-
-    // MARK: - PDF
-
-    private static func exportPDF(config: SymbolConfig, to url: URL) throws {
-        let px = config.exportPixelSize
-        let targetSize = CGSize(width: px, height: px)
-
-        var symbolImage: NSImage? = nil
-        if config.imageSource == .sfSymbol {
-            let symbolCfg = NSImage.SymbolConfiguration.make(from: config)
-            guard let base = NSImage(systemSymbolName: config.symbolName, accessibilityDescription: nil),
-                  let configured = base.withSymbolConfiguration(symbolCfg)
-            else { throw ExportError.symbolNotFound(config.symbolName) }
-            symbolImage = configured
-        }
-
-        let pdfData = NSMutableData()
-        guard let consumer = CGDataConsumer(data: pdfData as CFMutableData) else {
-            throw ExportError.renderFailed
-        }
-
-        var mediaBox = CGRect(origin: .zero, size: targetSize)
-        guard let ctx = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
-            throw ExportError.renderFailed
-        }
-
-        NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.current = NSGraphicsContext(cgContext: ctx, flipped: false)
-
-        ctx.beginPDFPage(nil)
-
-        let bounds = CGRect(origin: .zero, size: targetSize)
-        NSColor(config.backgroundColor).withAlphaComponent(config.backgroundOpacity).setFill()
-        bounds.fill()
-
-        let padding = CGFloat(px) * 0.08
-        let available = NSRect(x: padding, y: padding,
-                               width: CGFloat(px) - padding * 2,
-                               height: CGFloat(px) - padding * 2)
-
-        if let sym = symbolImage {
-            let fitRect = aspectFitRect(imageSize: sym.size, in: available)
-            sym.draw(in: fitRect, from: .zero, operation: .sourceOver, fraction: 1.0)
-        } else {
-            drawEmoji(config.emojiText, in: available)
-        }
-
-        ctx.endPDFPage()
-        ctx.closePDF()
-        NSGraphicsContext.restoreGraphicsState()
-
-        try (pdfData as Data).write(to: url)
+        return rep
     }
 }
 
